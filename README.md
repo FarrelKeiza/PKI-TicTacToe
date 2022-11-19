@@ -1,3 +1,3 @@
 # TicTacToe
 
-mantap
+mantap!
