@@ -1,5 +1,0 @@
-# TicTacToe
-
-mantap!
-
-#anjay mabar
