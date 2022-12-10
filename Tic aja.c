@@ -8,6 +8,7 @@ typedef struct{
 	char board[7][7];
 	int boardSize;
 	int winObjective;
+	char winner[100];
 }game;
 
 typedef struct{
@@ -19,7 +20,7 @@ typedef struct{
 
 void printMenu(){
 	system("cls");
-	printf("==============================");
+	printf("=============================");
 	printf("\nSelamat Datang di Tic Tac Toe");
 	printf("\n=============================");
 	printf("\n1. Mainkan Tic Tac Toe");
@@ -29,7 +30,7 @@ void printMenu(){
 
 void printBoardSize(){
 	system("cls");
-	printf("=====================");
+	printf("====================");
 	printf("\nUkuran Papan");
 	printf("\n====================");
 	printf("\n1. 3x3");
@@ -44,7 +45,7 @@ void scanInteger(int *value){
 
 void printPlayerName(int player){
 	system("cls");
-	printf("=====================");
+	printf("====================");
 	printf("\nNama untuk player %d", player);
 	printf("\n====================");
 	printf("\nNama player: ");
@@ -104,9 +105,11 @@ int getBoardSize(int choice){
 int checkBoard(char board[7][7], int row, int col){
 	if(board[row][col] == '_'){
 		return 1;
-	}else{
+	}else if(board[row][col] == 'X' || board[row][col] == 'O'){
 		return 0;
-	} 
+	}else{
+		return 99;
+	}
 }
 
 int checkDraw(char board[7][7], int size){
@@ -132,7 +135,7 @@ void makeMove(char board[7][7], int row, int col, char symbol){
 
 void printWinObjective(int size){
 	system("cls");
-	printf("=====================");
+	printf("====================");
 	printf("\nTujuan untuk menang");
 	printf("\n====================");
 	if(size == 5){
@@ -143,7 +146,7 @@ void printWinObjective(int size){
 }
 
 int checkWinner(char board[7][7], int size, int turn, int winObjective){
-	int i = 0, j = 0, winner = 0, count;
+	int i = 0, j, count;
 	char symbol;
 	
 	switch(turn){
@@ -157,9 +160,12 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 	
 	while(i < size){
 		count = 0;
+		j = 0;
 		while(j < size){
 			if(board[i][j] == symbol){
 				count++;
+			}else{
+				count = 0;
 			}
 			if(count == winObjective){
 				return 1;
@@ -169,14 +175,16 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 		i++;
 	}
 	
-	i = 0;
 	j = 0;
 	
 	while(j < size){
 		count = 0;
+		i = 0;
 		while(i < size){
 			if(board[i][j] == symbol){
 				count++;
+			}else{
+				count = 0;
 			}
 			if(count == winObjective){
 				return 1;
@@ -193,6 +201,8 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 	while(i < size){
 		if(board[i][j] == symbol){
 				count++;
+			}else{
+				count = 0;
 			}
 		if(count == winObjective){
 			return 1;
@@ -208,6 +218,8 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 	while(i < size){
 		if(board[i][j] == symbol){
 			count++;
+		}else{
+				count = 0;
 		}
 		if(count == winObjective){
 			return 1;
@@ -221,7 +233,7 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 
 void printPlayerCount(){
 	system("cls");
-	printf("=====================");
+	printf("====================");
 	printf("\nMode Pemain");
 	printf("\n====================");
 	printf("\n1. Singleplayer");
@@ -231,7 +243,7 @@ void printPlayerCount(){
 
 void printDifficulty(){
 	system("cls");
-	printf("=====================");
+	printf("====================");
 	printf("\nKesulitan Komputer");
 	printf("\n====================");
 	printf("\n1. Mediocre");
@@ -248,6 +260,48 @@ int getCol(int col){
 	return col;
 }
 
+int checkWin(char board[7][7], int size, int turn){
+	if(checkDraw(board, size) == 1){
+		return 1;
+	}else if((turn + 1) % 2 == 0){
+		return 2;
+		}else{
+			return 3;
+		}
+}
+
+void printWinMultiplayer(int winner, char name[]){
+	printf("\n==============================");
+	switch(winner){
+		case 1:
+			printf("\nPermainan Seri");
+			break;
+		case 2:
+			printf("\n%s Menang", name);
+			break;
+		case 3:
+			printf("\n%s Menang", name);
+			break;
+	}
+	printf("\n==============================\n");
+}
+
+void printWinSingleplayer(int winner, char name[]){
+	printf("\n==============================");
+	switch(winner){
+		case 1:
+			printf("\nPermainan Seri");
+			break;
+		case 2:
+			printf("\n%s Menang", name);
+			break;
+		case 3:
+			printf("\nKomputer Menang");
+			break;
+	}
+	printf("\n==============================\n");
+}
+
 void mediocreBot(char board[7][7], int size, int *row, int *col){
 	do{
 		*row = rand() % size;
@@ -257,21 +311,21 @@ void mediocreBot(char board[7][7], int size, int *row, int *col){
 
 void gameplayMultiplayer(game mainGame, player playerOne, player playerTwo){
 	int turn = 0, row, col;
-
+	
 	do{
 		printBoard(mainGame.board, mainGame.boardSize);
 		do{
 			do{
 				scanInteger(&row);
 				scanInteger(&col);
-				if(row < 0 || row >= mainGame.boardSize || col < 0 || col >= mainGame.boardSize){
+				if(checkBoard(mainGame.board, row, col) == 99){
 					printf("Isikan input yang benar\n");
 				}
 			}while(row < 0 && row >= mainGame.boardSize && col < 0 && col >= mainGame.boardSize);
 			if(checkBoard(mainGame.board, row, col) == 0){
 				printf("Kotak sudah terisi\n");
 			}
-		}while(checkBoard(mainGame.board, row, col) == 0);
+		}while(checkBoard(mainGame.board, row, col) != 0);
 		switch(turn){
 			case 0:
 				makeMove(mainGame.board, row, col, playerOne.symbol);
@@ -283,15 +337,19 @@ void gameplayMultiplayer(game mainGame, player playerOne, player playerTwo){
 		turn = (turn + 1) % 2;
 	}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
 	
-	printBoard(mainGame.board, mainGame.boardSize);
+	switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
+		case 2:
+			strcpy(mainGame.winner, playerOne.playerName);
+			break;
+		case 3:
+			strcpy(mainGame.winner, playerTwo.playerName);
+			break;
+		default:
+			strcpy(mainGame.winner, "No One");
+	}
 	
-	if(checkDraw(mainGame.board, mainGame.boardSize) == 1){
-		printf("Permainan Seri");
-	}else if((turn + 1) % 2 == 0){
-		printf("%s Menang", playerOne.playerName);
-		}else{
-			printf("%s Menang", playerTwo.playerName);
-		}
+	printBoard(mainGame.board, mainGame.boardSize);
+	printWinMultiplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
 }
 
 void gameplayMediocre(game mainGame, player playerOne, player playerTwo){
@@ -304,14 +362,14 @@ void gameplayMediocre(game mainGame, player playerOne, player playerTwo){
 				do{
 					scanInteger(&row);
 					scanInteger(&col);
-					if(row < 0 || row >= mainGame.boardSize || col < 0 || col >= mainGame.boardSize){
+					if(checkBoard(mainGame.board, row, col) == 99){
 						printf("Isikan input yang benar\n");
 					}
 				}while(row < 0 && row >= mainGame.boardSize && col < 0 && col >= mainGame.boardSize);
 				if(checkBoard(mainGame.board, row, col) == 0){
 					printf("Kotak sudah terisi\n");
 				}
-			}while(checkBoard(mainGame.board, row, col) == 0);
+			}while(checkBoard(mainGame.board, row, col) != 1);
 		}
 		switch(turn){
 			case 0:
@@ -325,15 +383,19 @@ void gameplayMediocre(game mainGame, player playerOne, player playerTwo){
 		turn = (turn + 1) % 2;
 	}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
 	
-	printBoard(mainGame.board, mainGame.boardSize);
+	switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
+		case 2:
+			strcpy(mainGame.winner, playerOne.playerName);
+			break;
+		case 3:
+			strcpy(mainGame.winner, playerTwo.playerName);
+			break;
+		default:
+			strcpy(mainGame.winner, "No One");
+	}
 	
-	if(checkDraw(mainGame.board, mainGame.boardSize) == 1){
-		printf("Permainan Seri");
-	}else if((turn + 1) % 2 == 0){
-		printf("%s Menang", playerOne.playerName);
-		}else{
-			printf("Computer Menang");
-		}
+	printBoard(mainGame.board, mainGame.boardSize);
+	printWinSingleplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
 }
 
 void gameInitialization(){
@@ -378,12 +440,6 @@ void gameInitialization(){
 	}while(choice != 1 && choice != 2);
 	
 	if(choice == 1){
-		printPlayerName(1);
-		scanName(playerOne.playerName);
-		printPlayerName(2);
-		scanName(playerTwo.playerName);
-		gameplayMultiplayer(mainGame, playerOne, playerTwo);
-	}else{
 		do{
 			printDifficulty();
 			scanInteger(&choice);
@@ -397,6 +453,12 @@ void gameInitialization(){
 				gameplayMediocre(mainGame, playerOne, playerTwo);
 				break;
 		}
+	}else{
+		printPlayerName(1);
+		scanName(playerOne.playerName);
+		printPlayerName(2);
+		scanName(playerTwo.playerName);
+		gameplayMultiplayer(mainGame, playerOne, playerTwo);
 	}
 }
 
