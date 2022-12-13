@@ -267,14 +267,6 @@ void printDifficulty(){
 	printf("\nPilih tingkat kesulitan komputer: ");
 }
 
-int getRow(int row){
-	return row;
-}
-
-int getCol(int col){
-	return col;
-}
-
 int checkWin(char board[7][7], int size, int turn){
 	if(checkDraw(board, size) == 1){
 		return 1;
