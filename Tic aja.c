@@ -302,6 +302,14 @@ void printWinSingleplayer(int winner, char name[]){
 	printf("\n==============================\n");
 }
 
+void printGameOver(){
+	printf("\n==============================");
+	printf("\nApakah ingin main lagi?");
+	printf("\n1. Main Lagi");
+	printf("\n2. Kembali ke Menu Utama");
+	printf("\n==============================\n");
+}
+
 void mediocreBot(char board[7][7], int size, int *row, int *col){
 	do{
 		*row = rand() % size;
@@ -310,54 +318,13 @@ void mediocreBot(char board[7][7], int size, int *row, int *col){
 }
 
 void gameplayMultiplayer(game mainGame, player playerOne, player playerTwo){
-	int turn = 0, row, col;
+	int turn, row, col, play;
 	
 	do{
-		printBoard(mainGame.board, mainGame.boardSize);
+		boardInitialization(mainGame.board, mainGame.boardSize);
+		turn = 0;
 		do{
-			do{
-				scanInteger(&row);
-				scanInteger(&col);
-				if(checkBoard(mainGame.board, row, col) == 99){
-					printf("Isikan input yang benar\n");
-				}
-			}while(row < 0 && row >= mainGame.boardSize && col < 0 && col >= mainGame.boardSize);
-			if(checkBoard(mainGame.board, row, col) == 0){
-				printf("Kotak sudah terisi\n");
-			}
-		}while(checkBoard(mainGame.board, row, col) != 0);
-		switch(turn){
-			case 0:
-				makeMove(mainGame.board, row, col, playerOne.symbol);
-				break;
-			case 1:
-				makeMove(mainGame.board, row, col, playerTwo.symbol);
-				break;
-		}
-		turn = (turn + 1) % 2;
-	}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
-	
-	switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
-		case 2:
-			strcpy(mainGame.winner, playerOne.playerName);
-			break;
-		case 3:
-			strcpy(mainGame.winner, playerTwo.playerName);
-			break;
-		default:
-			strcpy(mainGame.winner, "No One");
-	}
-	
-	printBoard(mainGame.board, mainGame.boardSize);
-	printWinMultiplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
-}
-
-void gameplayMediocre(game mainGame, player playerOne, player playerTwo){
-	int turn = 0, row, col;
-	
-	do{
-		printBoard(mainGame.board, mainGame.boardSize);
-		if(turn == 0){
+			printBoard(mainGame.board, mainGame.boardSize);
 			do{
 				do{
 					scanInteger(&row);
@@ -369,33 +336,104 @@ void gameplayMediocre(game mainGame, player playerOne, player playerTwo){
 				if(checkBoard(mainGame.board, row, col) == 0){
 					printf("Kotak sudah terisi\n");
 				}
-			}while(checkBoard(mainGame.board, row, col) != 1);
-		}
-		switch(turn){
-			case 0:
-				makeMove(mainGame.board, row, col, playerOne.symbol);
+			}while(checkBoard(mainGame.board, row, col) != 0);
+			switch(turn){
+				case 0:
+					makeMove(mainGame.board, row, col, playerOne.symbol);
+					break;
+				case 1:
+					makeMove(mainGame.board, row, col, playerTwo.symbol);
+					break;
+			}
+			turn = (turn + 1) % 2;
+		}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
+		
+		switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
+			case 2:
+				strcpy(mainGame.winner, playerOne.playerName);
+				playerOne.score++;
 				break;
-			case 1:
-				mediocreBot(mainGame.board, mainGame.boardSize, &row, &col);
-				makeMove(mainGame.board, row, col, playerTwo.symbol);
+			case 3:
+				strcpy(mainGame.winner, playerTwo.playerName);
+				playerTwo.score++;
 				break;
+			default:
+				strcpy(mainGame.winner, "No One");
 		}
-		turn = (turn + 1) % 2;
-	}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
+		
+		printBoard(mainGame.board, mainGame.boardSize);
+		printWinMultiplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+		
+		do{
+			printGameOver();
+			scanInteger(&play);
+		}while(play != 1 && play != 2);
+		
+		if(play == 2){
+			main();
+		}
+	}while(play == 1);
+}
+
+void gameplayMediocre(game mainGame, player playerOne, player playerTwo){
+	int turn, row, col, play;
 	
-	switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
-		case 2:
-			strcpy(mainGame.winner, playerOne.playerName);
-			break;
-		case 3:
-			strcpy(mainGame.winner, playerTwo.playerName);
-			break;
-		default:
-			strcpy(mainGame.winner, "No One");
-	}
-	
-	printBoard(mainGame.board, mainGame.boardSize);
-	printWinSingleplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+	do{
+		boardInitialization(mainGame.board, mainGame.boardSize);
+		turn = 0;
+		do{
+			printBoard(mainGame.board, mainGame.boardSize);
+			if(turn == 0){
+				do{
+					do{
+						scanInteger(&row);
+						scanInteger(&col);
+						if(checkBoard(mainGame.board, row, col) == 99){
+							printf("Isikan input yang benar\n");
+						}
+					}while(row < 0 && row >= mainGame.boardSize && col < 0 && col >= mainGame.boardSize);
+					if(checkBoard(mainGame.board, row, col) == 0){
+						printf("Kotak sudah terisi\n");
+					}
+				}while(checkBoard(mainGame.board, row, col) != 1);
+			}
+			switch(turn){
+				case 0:
+					makeMove(mainGame.board, row, col, playerOne.symbol);
+					break;
+				case 1:
+					mediocreBot(mainGame.board, mainGame.boardSize, &row, &col);
+					makeMove(mainGame.board, row, col, playerTwo.symbol);
+					break;
+			}
+			turn = (turn + 1) % 2;
+		}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
+		
+		switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
+			case 2:
+				strcpy(mainGame.winner, playerOne.playerName);
+				playerOne.score++;
+				break;
+			case 3:
+				strcpy(mainGame.winner, playerTwo.playerName);
+				playerTwo.score++;
+				break;
+			default:
+				strcpy(mainGame.winner, "No One");
+		}
+		
+		printBoard(mainGame.board, mainGame.boardSize);
+		printWinSingleplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+		
+		do{
+			printGameOver();
+			scanInteger(&play);
+		}while(play != 1 && play != 2);
+		
+		if(play == 2){
+			main();
+		}
+	}while(play == 1);
 }
 
 void gameInitialization(){
@@ -408,14 +446,15 @@ void gameInitialization(){
 	playerSymbol(&playerOne.symbol, 1);
 	playerSymbol(&playerTwo.symbol, 2);
 	
+	playerOne.score = 0;
+	playerTwo.score = 0;
+	
 	do{
 		printBoardSize();
 		scanInteger(&choice);
 	}while(choice != 1 && choice != 2 && choice != 3);
 	
 	mainGame.boardSize = getBoardSize(choice);
-	
-	boardInitialization(mainGame.board, mainGame.boardSize);
 	
 	if(mainGame.boardSize > 3){
 		switch(mainGame.boardSize){
