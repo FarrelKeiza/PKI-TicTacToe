@@ -1,0 +1,493 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+
+typedef struct{
+	int highScore;
+	char board[7][7];
+	int boardSize;
+	int winObjective;
+	char winner[100];
+	int playerCount;
+	int difficulty;
+}game;
+
+typedef struct{
+	char playerName[100];
+	int score;
+	char symbol;
+}player;
+
+void printMenu(){
+	system("cls");
+	printf("=============================");
+	printf("\nSelamat Datang di Tic Tac Toe");
+	printf("\n=============================");
+	printf("\n1. Mainkan Tic Tac Toe");
+	printf("\n2. Keluar Game");
+	printf("\nPilih menu: ");
+}
+
+void printBoardSize(){
+	system("cls");
+	printf("====================");
+	printf("\nUkuran Papan");
+	printf("\n====================");
+	printf("\n1. 3x3");
+	printf("\n2. 5x5");
+	printf("\n3. 7x7");
+	printf("\nPilih ukuran papan: ");
+}
+
+void scanInteger(int *value){
+	scanf("%d", &*value);
+}
+
+void printPlayerName(int player){
+	system("cls");
+	printf("====================");
+	printf("\nNama untuk player %d", player);
+	printf("\n====================");
+	printf("\nNama player: ");
+}
+
+void scanName(char playerName[]){
+	scanf("%s", playerName);
+}
+
+void playerSymbol(char *symbol, int turn){
+	switch(turn){
+		case 1:
+			*symbol = 'X';
+			break;
+		case 2:
+			*symbol = 'O';
+			break;
+	}
+}
+
+void boardInitialization(char board[7][7], int size){
+	int i, j;
+	
+	for(i = 0; i < size; i++){
+		for(j = 0; j < size; j++){
+			board[i][j] = '_';
+		}
+	}
+}
+
+void printBoard(char board[7][7], int size){
+	int i, j;
+		
+	for(i = 0; i < size; i++){
+		printf("\t\t");
+		for(j = 0; j < size; j++){
+			printf("%c", board[i][j]);
+			if(j < size - 1){
+				printf(" | ");
+			}
+		}
+		printf("\n");
+	}
+	printf("===========================================\n");
+	printf("\t  Input Pilihan : ");
+}
+
+int getBoardSize(int choice){
+	switch(choice){
+		case 1:
+			return 3;
+		case 2:
+			return 5;
+		case 3:
+			return 7;
+	}
+}
+
+int checkBoard(char board[7][7], int row, int col){
+	if(board[row][col] == '_'){
+		return 1;
+	}else if(board[row][col] == 'X' || board[row][col] == 'O'){
+		return 0;
+	}else{
+		return 99;
+	}
+}
+
+int addScore(char winner[], char playerName[], int *playerScore){
+	strcpy(winner, playerName);
+	(*playerScore)++;
+}
+
+void printScore(int score1, int score2){
+	printf("\t\tTIC TAC TOE\n");
+	printf("===========================================\n");
+	printf("Score Player 1 : %d\t Score Player 2 : %d\n", score1, score2);
+	printf("===========================================\n");
+}
+
+void printGame(int playerOneScore, int playerTwoScore, char board[7][7], int boardSize){
+	system("cls");
+	printScore(playerOneScore, playerTwoScore);
+	printBoard(board, boardSize);
+}
+
+int checkDraw(char board[7][7], int size){
+	int i = 0, j;
+	
+	while(i < size){
+		j = 0;
+		while(j < size){
+			if(board[i][j] == '_'){
+				return 0;
+			}
+			j++;
+		}
+		i++;
+	}
+	
+	return 1;
+}
+
+void makeMove(char board[7][7], int row, int col, char symbol){
+	board[row][col] = symbol;
+}
+
+void printWinObjective(int size){
+	system("cls");
+	printf("====================");
+	printf("\nTujuan untuk menang");
+	printf("\n====================");
+	if(size == 5){
+		printf("\nInput angka(3-5): ");
+	}else{
+		printf("\nInput angka(3-7): ");
+	}	
+}
+
+int checkWinner(char board[7][7], int size, int turn, int winObjective){
+	int i = 0, j, count;
+	char symbol;
+	
+	switch(turn){
+		case 0:
+			symbol = 'X';
+			break;
+		case 1:
+			symbol = 'O';
+			break;
+	}
+	
+	while(i < size){
+		count = 0;
+		j = 0;
+		while(j < size){
+			if(board[i][j] == symbol){
+				count++;
+			}else{
+				count = 0;
+			}
+			if(count == winObjective){
+				return 1;
+			}
+			j++;
+		}
+		i++;
+	}
+	
+	j = 0;
+	
+	while(j < size){
+		count = 0;
+		i = 0;
+		while(i < size){
+			if(board[i][j] == symbol){
+				count++;
+			}else{
+				count = 0;
+			}
+			if(count == winObjective){
+				return 1;
+			}
+			i++;
+		}
+		j++;
+	}
+	
+	i = 0;
+	j = 0;
+	count = 0;
+	
+	while(i < size){
+		if(board[i][j] == symbol){
+				count++;
+			}else{
+				count = 0;
+			}
+		if(count == winObjective){
+			return 1;
+		}
+		i++;
+		j++;
+	}
+	
+	i = 0;
+	j = size - 1;
+	count = 0;
+	
+	while(i < size){
+		if(board[i][j] == symbol){
+			count++;
+		}else{
+				count = 0;
+		}
+		if(count == winObjective){
+			return 1;
+		}
+		i++;
+		j--;
+	}
+	
+	return 0;
+}
+
+void printPlayerCount(){
+	system("cls");
+	printf("====================");
+	printf("\nMode Pemain");
+	printf("\n====================");
+	printf("\n1. Singleplayer");
+	printf("\n2. Multiplayer");
+	printf("\nPilih jumlah pemain: ");
+}
+
+void printDifficulty(){
+	system("cls");
+	printf("====================");
+	printf("\nKesulitan Komputer");
+	printf("\n====================");
+	printf("\n1. Mediocre");
+	printf("\n2. Medium");
+	printf("\n3. Masochist");
+	printf("\nPilih tingkat kesulitan komputer: ");
+}
+
+int checkWin(char board[7][7], int size, int turn){
+	if(checkDraw(board, size) == 1){
+		return 1;
+	}else if((turn + 1) % 2 == 0){
+		return 2;
+		}else{
+			return 3;
+		}
+}
+
+void printWinMultiplayer(int winner, char name[]){
+	printf("\n==============================");
+	switch(winner){
+		case 1:
+			printf("\nPermainan Seri");
+			break;
+		case 2:
+			printf("\n%s Menang", name);
+			break;
+		case 3:
+			printf("\n%s Menang", name);
+			break;
+	}
+	printf("\n==============================\n");
+}
+
+void printWinSingleplayer(int winner, char name[]){
+	printf("\n==============================");
+	switch(winner){
+		case 1:
+			printf("\nPermainan Seri");
+			break;
+		case 2:
+			printf("\n%s Menang", name);
+			break;
+		case 3:
+			printf("\nKomputer Menang");
+			break;
+	}
+	printf("\n==============================\n");
+}
+
+void printGameOver(){
+	printf("\n==============================");
+	printf("\nApakah ingin main lagi?");
+	printf("\n1. Main Lagi");
+	printf("\n2. Kembali ke Menu Utama");
+	printf("\n==============================\n");
+}
+
+void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
+	do{
+		do{
+			scanInteger(&*row);
+			scanInteger(&*col);
+			if(checkBoard(board, *row, *col) == 99){
+				printf("Isikan input yang benar\n");
+			}
+		}while(*row < 0 && *row >= boardSize && *col < 0 && *col >= boardSize);
+		
+		if(checkBoard(board, *row, *col) == 0){
+			printf("Kotak sudah terisi\n");
+		}
+		
+	}while(checkBoard(board, *row, *col) != 1);
+}
+
+void mediocreBot(char board[7][7], int size, int *row, int *col){
+	do{
+		*row = rand() % size;
+		*col = rand() % size;
+	}while(checkBoard(board, *row, *col) == 0);
+}
+
+void gameplay(game mainGame, player playerOne, player playerTwo){
+	int turn, row, col, play;
+	
+	do{
+		boardInitialization(mainGame.board, mainGame.boardSize);
+		turn = 0;
+		do{
+			printGame(playerOne.score, playerTwo.score,mainGame.board, mainGame.boardSize);
+			if(mainGame.difficulty == 0){
+				scanUserInput(mainGame.board, mainGame.boardSize, &row, &col);
+			}else{
+				if(turn == 0){
+					scanUserInput(mainGame.board, mainGame.boardSize, &row, &col);
+				}
+			}
+			
+			switch(turn){
+				case 0:
+					makeMove(mainGame.board, row, col, playerOne.symbol);
+					break;
+				case 1:
+					switch(mainGame.difficulty){
+						case 1:
+							mediocreBot(mainGame.board, mainGame.boardSize, &row, &col);
+							break;
+						default:
+							break;
+					}
+					makeMove(mainGame.board, row, col, playerTwo.symbol);
+					break;
+			}
+			turn = (turn + 1) % 2;
+		}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
+		
+		switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
+			case 2:
+				addScore(mainGame.winner, playerOne.playerName, &playerOne.score);
+				break;
+			case 3:
+				addScore(mainGame.winner, playerTwo.playerName, &playerTwo.score);
+				break;
+			default:
+				strcpy(mainGame.winner, "No One");
+		}
+		
+		printGame(playerOne.score, playerTwo.score,mainGame.board, mainGame.boardSize);
+		
+		if(mainGame.difficulty == 0){
+			printWinMultiplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+		}else{
+			printWinSingleplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+		}
+		
+		do{
+			printGameOver();
+			scanInteger(&play);
+		}while(play != 1 && play != 2);
+		
+		if(play == 2){
+			main();
+		}
+	}while(play == 1);
+}
+
+void gameInitialization(){
+	game mainGame;
+	int choice, row, col;
+	player playerOne, playerTwo;
+	
+	mainGame.winObjective = 3;
+	
+	playerSymbol(&playerOne.symbol, 1);
+	playerSymbol(&playerTwo.symbol, 2);
+	
+	playerOne.score = 0;
+	playerTwo.score = 0;
+	
+	do{
+		printBoardSize();
+		scanInteger(&choice);
+	}while(choice != 1 && choice != 2 && choice != 3);
+	
+	mainGame.boardSize = getBoardSize(choice);
+	
+	if(mainGame.boardSize > 3){
+		switch(mainGame.boardSize){
+			case 5:
+				do{
+					printWinObjective(mainGame.boardSize);
+					scanInteger(&mainGame.winObjective);
+				}while(mainGame.winObjective < 3 && mainGame.winObjective > 5);
+				break;
+			case 7:
+				do{
+					printWinObjective(mainGame.boardSize);
+					scanInteger(&mainGame.winObjective);
+				}while(mainGame.winObjective < 3 && mainGame.winObjective > 7);
+				break;
+		}
+	}
+	
+	do{
+		printPlayerCount();
+		scanInteger(&choice);
+	}while(choice != 1 && choice != 2);
+	
+	if(choice == 1){
+		do{
+			printDifficulty();
+			scanInteger(&mainGame.difficulty);
+		}while(mainGame.difficulty != 1 && mainGame.difficulty != 2 && mainGame.difficulty != 3);
+	}
+	
+	printPlayerName(1);
+	scanName(playerOne.playerName);
+				
+	if(choice == 2){
+		mainGame.difficulty = 0;
+		printPlayerName(2);
+		scanName(playerTwo.playerName);
+	}
+	gameplay(mainGame, playerOne, playerTwo);
+}
+
+int main(){
+	int initialize = 1;
+	
+	do{
+		printMenu();
+		if(initialize != 1 && initialize != 2){
+			printf("\n\nInput hanya 1/2\n");
+		}
+		scanInteger(&initialize);
+		
+	}while(initialize != 1 && initialize != 2);
+	
+	switch(initialize){
+		case 1:
+			gameInitialization();
+			break;
+		case 2:
+			return 0;
+	}
+}
