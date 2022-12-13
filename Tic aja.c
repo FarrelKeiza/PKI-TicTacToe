@@ -136,6 +136,15 @@ int checkDraw(char board[7][7], int size){
 }
 
 void makeMove(char board[7][7], int row, int col, char symbol){
+	int index[7][7], i, j, k = 1;
+	
+	for(i = 0; i < 7; i++){
+		for(j = 0; j < 7; j++){
+			index[i][j] = k;
+			k++;
+		}
+	}
+	
 	board[row][col] = symbol;
 }
 
@@ -321,6 +330,8 @@ void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
 		do{
 			scanInteger(&*row);
 			scanInteger(&*col);
+			*row = *row - 1;
+			*col = *col - 1;
 			if(checkBoard(board, *row, *col) == 99){
 				printf("Isikan input yang benar\n");
 			}
