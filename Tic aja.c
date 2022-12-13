@@ -9,13 +9,14 @@ typedef struct{
 	int boardSize;
 	int winObjective;
 	char winner[100];
+	int playerCount;
+	int difficulty;
 }game;
 
 typedef struct{
 	char playerName[100];
 	int score;
 	char symbol;
-	int turn;
 }player;
 
 void printMenu(){
@@ -110,6 +111,11 @@ int checkBoard(char board[7][7], int row, int col){
 	}else{
 		return 99;
 	}
+}
+
+int addScore(char winner[], char playerName[], int playerScore){
+	strcpy(winner, playerName);
+	playerScore++;
 }
 
 int checkDraw(char board[7][7], int size){
@@ -310,6 +316,23 @@ void printGameOver(){
 	printf("\n==============================\n");
 }
 
+void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
+	do{
+		do{
+			scanInteger(&*row);
+			scanInteger(&*col);
+			if(checkBoard(board, *row, *col) == 99){
+				printf("Isikan input yang benar\n");
+			}
+		}while(*row < 0 && *row >= boardSize && *col < 0 && *col >= boardSize);
+		
+		if(checkBoard(board, *row, *col) == 0){
+			printf("Kotak sudah terisi\n");
+		}
+		
+	}while(checkBoard(board, *row, *col) != 1);
+}
+
 void mediocreBot(char board[7][7], int size, int *row, int *col){
 	do{
 		*row = rand() % size;
@@ -317,7 +340,7 @@ void mediocreBot(char board[7][7], int size, int *row, int *col){
 	}while(checkBoard(board, *row, *col) == 0);
 }
 
-void gameplayMultiplayer(game mainGame, player playerOne, player playerTwo){
+void gameplay(game mainGame, player playerOne, player playerTwo){
 	int turn, row, col, play;
 	
 	do{
@@ -325,84 +348,26 @@ void gameplayMultiplayer(game mainGame, player playerOne, player playerTwo){
 		turn = 0;
 		do{
 			printBoard(mainGame.board, mainGame.boardSize);
-			do{
-				do{
-					scanInteger(&row);
-					scanInteger(&col);
-					if(checkBoard(mainGame.board, row, col) == 99){
-						printf("Isikan input yang benar\n");
-					}
-				}while(row < 0 && row >= mainGame.boardSize && col < 0 && col >= mainGame.boardSize);
-				if(checkBoard(mainGame.board, row, col) == 0){
-					printf("Kotak sudah terisi\n");
+			if(mainGame.difficulty == 0){
+				scanUserInput(mainGame.board, mainGame.boardSize, &row, &col);
+			}else{
+				if(turn == 0){
+					scanUserInput(mainGame.board, mainGame.boardSize, &row, &col);
 				}
-			}while(checkBoard(mainGame.board, row, col) != 0);
+			}
+			
 			switch(turn){
 				case 0:
 					makeMove(mainGame.board, row, col, playerOne.symbol);
 					break;
 				case 1:
-					makeMove(mainGame.board, row, col, playerTwo.symbol);
-					break;
-			}
-			turn = (turn + 1) % 2;
-		}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
-		
-		switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
-			case 2:
-				strcpy(mainGame.winner, playerOne.playerName);
-				playerOne.score++;
-				break;
-			case 3:
-				strcpy(mainGame.winner, playerTwo.playerName);
-				playerTwo.score++;
-				break;
-			default:
-				strcpy(mainGame.winner, "No One");
-		}
-		
-		printBoard(mainGame.board, mainGame.boardSize);
-		printWinMultiplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
-		
-		do{
-			printGameOver();
-			scanInteger(&play);
-		}while(play != 1 && play != 2);
-		
-		if(play == 2){
-			main();
-		}
-	}while(play == 1);
-}
-
-void gameplayMediocre(game mainGame, player playerOne, player playerTwo){
-	int turn, row, col, play;
-	
-	do{
-		boardInitialization(mainGame.board, mainGame.boardSize);
-		turn = 0;
-		do{
-			printBoard(mainGame.board, mainGame.boardSize);
-			if(turn == 0){
-				do{
-					do{
-						scanInteger(&row);
-						scanInteger(&col);
-						if(checkBoard(mainGame.board, row, col) == 99){
-							printf("Isikan input yang benar\n");
-						}
-					}while(row < 0 && row >= mainGame.boardSize && col < 0 && col >= mainGame.boardSize);
-					if(checkBoard(mainGame.board, row, col) == 0){
-						printf("Kotak sudah terisi\n");
+					switch(mainGame.difficulty){
+						case 1:
+							mediocreBot(mainGame.board, mainGame.boardSize, &row, &col);
+							break;
+						default:
+							break;
 					}
-				}while(checkBoard(mainGame.board, row, col) != 1);
-			}
-			switch(turn){
-				case 0:
-					makeMove(mainGame.board, row, col, playerOne.symbol);
-					break;
-				case 1:
-					mediocreBot(mainGame.board, mainGame.boardSize, &row, &col);
 					makeMove(mainGame.board, row, col, playerTwo.symbol);
 					break;
 			}
@@ -411,19 +376,22 @@ void gameplayMediocre(game mainGame, player playerOne, player playerTwo){
 		
 		switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
 			case 2:
-				strcpy(mainGame.winner, playerOne.playerName);
-				playerOne.score++;
+				addScore(mainGame.winner, playerOne.playerName, playerOne.score);
 				break;
 			case 3:
-				strcpy(mainGame.winner, playerTwo.playerName);
-				playerTwo.score++;
+				addScore(mainGame.winner, playerTwo.playerName, playerTwo.score);
 				break;
 			default:
 				strcpy(mainGame.winner, "No One");
 		}
 		
 		printBoard(mainGame.board, mainGame.boardSize);
-		printWinSingleplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+		
+		if(mainGame.difficulty == 0){
+			printWinMultiplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+		}else{
+			printWinSingleplayer(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+		}
 		
 		do{
 			printGameOver();
@@ -481,24 +449,19 @@ void gameInitialization(){
 	if(choice == 1){
 		do{
 			printDifficulty();
-			scanInteger(&choice);
-		}while(choice != 1 && choice != 2 && choice != 3);
-		
-		printPlayerName(1);
-		scanName(playerOne.playerName);
+			scanInteger(&mainGame.difficulty);
+		}while(mainGame.difficulty != 1 && mainGame.difficulty != 2 && mainGame.difficulty != 3);
+	}
+	
+	printPlayerName(1);
+	scanName(playerOne.playerName);
 				
-		switch(choice){
-			case 1:
-				gameplayMediocre(mainGame, playerOne, playerTwo);
-				break;
-		}
-	}else{
-		printPlayerName(1);
-		scanName(playerOne.playerName);
+	if(choice == 2){
+		mainGame.difficulty = 0;
 		printPlayerName(2);
 		scanName(playerTwo.playerName);
-		gameplayMultiplayer(mainGame, playerOne, playerTwo);
 	}
+	gameplay(mainGame, playerOne, playerTwo);
 }
 
 int main(){
