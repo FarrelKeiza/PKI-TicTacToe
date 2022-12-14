@@ -357,40 +357,73 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 		j++;
 	}
 	
-	i = 0;
-	j = 0;
 	count = 0;
+	int k = 0, count2 = 0;
 	
-	while(i < size){
-		if(board[i][j] == symbol){
+	while(k <= size - winObjective){
+		i = 0;
+		j = k;
+		while(i < size && j < size){
+			if(board[i][j] == symbol){
+					count++;
+				}else{
+					count = 0;
+				}
+			if(board[j][k] == symbol){
+					count2++;
+				}else{
+					count2 = 0;
+				}
+			if(count == winObjective || count2 == winObjective){
+				return 1;
+			}
+			i++;
+			j++;
+		}
+		k++;
+	}
+	
+	count = 0;
+	k = size - 1;
+	
+	while(k >= winObjective - 1){
+		i = 0;
+		j = k;
+		while(i < size && j < size){
+			if(board[i][j] == symbol){
 				count++;
 			}else{
 				count = 0;
 			}
-		if(count == winObjective){
-			return 1;
+			if(count == winObjective){
+				return 1;
+			}
+			i++;
+			j--;
 		}
-		i++;
-		j++;
+		k--;
 	}
 	
-	i = 0;
-	j = size - 1;
 	count = 0;
+	k = 0;
 	
-	while(i < size){
-		if(board[i][j] == symbol){
-			count++;
-		}else{
+	while(k >= winObjective - 1){
+		i = k;
+		j = size - 1;
+		while(i < size && j < size){
+			if(board[i][j] == symbol){
+				count++;
+			}else{
 				count = 0;
+			}
+			if(count == winObjective){
+				return 1;
+			}
+			i++;
+			j--;
 		}
-		if(count == winObjective){
-			return 1;
-		}
-		i++;
-		j--;
+		k++;
 	}
-	
 	return 0;
 }
 
