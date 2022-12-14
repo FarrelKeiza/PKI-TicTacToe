@@ -183,13 +183,15 @@ int getBoardSize(int choice){
 	}
 }
 
-int checkBoard(char board[7][7], int row, int col){
+int checkBoard(char board[7][7], int row, int col, int size){
+	if(row < 0 || row >= size || col < 0 || col >= size){
+		return 99;
+	}
+	
 	if(board[row][col] == '_'){
 		return 1;
 	}else if(board[row][col] == 'X' || board[row][col] == 'O'){
 		return 0;
-	}else{
-		return 99;
 	}
 }
 
@@ -198,9 +200,9 @@ int addScore(char winner[], char playerName[], int *playerScore){
 	(*playerScore)++;
 }
 
-void printScore(int score1, int score2, char name[]){
+void printScore(int score1, int score2, char playerOneName[], char playerTwoName[]){
 	printf("\n\n\n\n\n\n\n\n");
-	printf("\t\t\t\t\t\tScore %s: %d                               Score %s : %d       \n",name,score1,score2);
+	printf("\t\t\t\t\t\tScore %s: %d                               Score %s : %d       \n", playerOneName,score1, playerTwoName, score2);
 	printf("\t\t\t\t\t\t=================================================================\n");
 	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
 	printf("\t\t\t\t\t\t||-----------------------| Tic-Tac-Toe |-----------------------||\n");
@@ -208,9 +210,9 @@ void printScore(int score1, int score2, char name[]){
 	printf("\t\t\t\t\t\t=================================================================\n");
 }
 
-void printGame(int playerOneScore, int playerTwoScore, char board[7][7], int boardSize, char name[]){
+void printGame(int playerOneScore, int playerTwoScore, char board[7][7], int boardSize, char playerOneName[], char playerTwoName[]){
 	system("cls");
-	printScore(playerOneScore, playerTwoScore, name);
+	printScore(playerOneScore, playerTwoScore, playerOneName, playerTwoName);
 	printBoard(board, boardSize);
 }
 
@@ -485,23 +487,23 @@ void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
 			scanInteger(&*col);
 			*row = *row - 1;
 			*col = *col - 1;
-			if(checkBoard(board, *row, *col) == 99){
+			if(checkBoard(board, *row, *col, boardSize) == 99){
 				printf("Masukkan input dengan benar");
 			}
-		}while(*row < 0 && *row >= boardSize && *col < 0 && *col >= boardSize);
+		}while(*row < 0 || *row >= boardSize || *col < 0 || *col >= boardSize);
 		
-		if(checkBoard(board, *row, *col) == 0){
+		if(checkBoard(board, *row, *col, boardSize) == 0){
 			printf("Kotak Sudah Terisi");
 		}
 		
-	}while(checkBoard(board, *row, *col) != 1);
+	}while(checkBoard(board, *row, *col, boardSize) != 1);
 }
 
 void mediocreBot(char board[7][7], int size, int *row, int *col){
 	do{
 		*row = rand() % size;
 		*col = rand() % size;
-	}while(checkBoard(board, *row, *col) == 0);
+	}while(checkBoard(board, *row, *col, size) == 0);
 }
 
 void gameplay(game mainGame, player playerOne, player playerTwo){
@@ -511,7 +513,7 @@ void gameplay(game mainGame, player playerOne, player playerTwo){
 		boardInitialization(mainGame.board, mainGame.boardSize);
 		turn = 0;
 		do{
-			printGame(playerOne.score, playerTwo.score,mainGame.board, mainGame.boardSize, playerOne.playerName);
+			printGame(playerOne.score, playerTwo.score,mainGame.board, mainGame.boardSize, playerOne.playerName, playerTwo.playerName);
 			if(mainGame.difficulty == 0){
 				scanUserInput(mainGame.board, mainGame.boardSize, &row, &col);
 			}else{
@@ -594,13 +596,13 @@ void gameInitialization(){
 				do{
 					printWinObjective(mainGame.boardSize);
 					scanInteger(&mainGame.winObjective);
-				}while(mainGame.winObjective < 3 && mainGame.winObjective > 5);
+				}while(mainGame.winObjective < 3 || mainGame.winObjective > 5);
 				break;
 			case 7:
 				do{
 					printWinObjective(mainGame.boardSize);
 					scanInteger(&mainGame.winObjective);
-				}while(mainGame.winObjective < 3 && mainGame.winObjective > 7);
+				}while(mainGame.winObjective < 3 || mainGame.winObjective > 7);
 				break;
 		}
 	}
@@ -611,6 +613,7 @@ void gameInitialization(){
 	}while(choice != 1 && choice != 2);
 	
 	if(choice == 1){
+		strcpy(playerTwo.playerName, "Computer");
 		do{
 			printDifficulty();
 			scanInteger(&mainGame.difficulty);
