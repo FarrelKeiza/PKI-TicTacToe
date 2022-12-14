@@ -2,6 +2,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include <windows.h>
 
 typedef struct{
 	int highScore;
@@ -21,23 +22,63 @@ typedef struct{
 
 void printMenu(){
 	system("cls");
+<<<<<<< HEAD
 	printf("\n=============================");
 	printf("\nSelamat Datang di Tic Tac Toe");
 	printf("\n=============================");
 	printf("\n1. Mainkan Tic Tac Toe");
 	printf("\n2. Keluar Game");
 	printf("\nPilih menu: ");
+=======
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------| Tic-Tac-Toe |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                       1. Play Game                          ||\n");
+	printf("\t\t\t\t\t\t|-                       2. Exit Game                          -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n"); 
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                 By Programmer Keren Indonesia               -|\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\n\n");
+	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
+>>>>>>> 658717099f459df41806bb48ae5d7d54ba7a6c01
 }
 
 void printBoardSize(){
 	system("cls");
-	printf("====================");
-	printf("\nUkuran Papan");
-	printf("\n====================");
-	printf("\n1. 3x3");
-	printf("\n2. 5x5");
-	printf("\n3. 7x7");
-	printf("\nPilih ukuran papan: ");
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------| Tic-Tac-Toe |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||                         Board Size                          ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                           1. 3x3                            ||\n");
+	printf("\t\t\t\t\t\t|-                           2. 5x5                            -|\n");
+	printf("\t\t\t\t\t\t||                           3. 7x7                            ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n"); 
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                 By Programmer Keren Indonesia               -|\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\n\n");
+	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
 }
 
 void scanInteger(int *value){
@@ -46,10 +87,28 @@ void scanInteger(int *value){
 
 void printPlayerName(int player){
 	system("cls");
-	printf("====================");
-	printf("\nNama untuk player %d", player);
-	printf("\n====================");
-	printf("\nNama player: ");
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------| Tic-Tac-Toe |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                        Player Name %d                        -|\n", player);
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n"); 
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                 By Programmer Keren Indonesia               -|\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\n\n");
+	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
 }
 
 void scanName(char playerName[]){
@@ -79,17 +138,47 @@ void boardInitialization(char board[7][7], int size){
 
 void printBoard(char board[7][7], int size){
 	int i, j;
-		
-	system("cls");
-	for(i = 0; i < size; i++){
-		for(j = 0; j < size; j++){
-			printf("%c", board[i][j]);
-			if(j < size - 1){
-				printf(" | ");
-			}
-		}
+	
+	if(size == 3){
+		for(i = 0; i < size; i++){
 		printf("\n");
+		printf("\t\t\t\t\t\t\t\t\t    ");
+			for(j = 0; j < size; j++){
+				printf("%c", board[i][j]);
+				if(j < size - 1){
+					printf(" | ");
+				}
+			}
+		printf("\n");
+		}	
+	}else if(size == 5){
+		for(i = 0; i < size; i++){
+		printf("\n");
+		printf("\t\t\t\t\t\t\t\t        ");
+			for(j = 0; j < size; j++){
+				printf("%c", board[i][j]);
+				if(j < size - 1){
+					printf(" | ");
+				}
+			}
+		printf("\n");
+		}
+	}else if(size == 7){
+		for(i = 0; i < size; i++){
+		printf("\n");
+		printf("\t\t\t\t\t\t\t\t    ");
+			for(j = 0; j < size; j++){
+				printf("%c", board[i][j]);
+				if(j < size - 1){
+					printf(" | ");
+				}
+			}
+		printf("\n");
+		}
 	}
+	printf("\n\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t                 By Programmer Keren Indonesia                  ");
+	printf("\n\n\t\t\t\t\t\t\t\t\tInput Pilihan: ");
 }
 
 int getBoardSize(int choice){
@@ -113,9 +202,25 @@ int checkBoard(char board[7][7], int row, int col){
 	}
 }
 
-int addScore(char winner[], char playerName[], int playerScore){
+int addScore(char winner[], char playerName[], int *playerScore){
 	strcpy(winner, playerName);
-	playerScore++;
+	(*playerScore)++;
+}
+
+void printScore(int score1, int score2, char name[]){
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\tScore %s: %d                               Score %s : %d       \n",name,score1,score2);
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------| Tic-Tac-Toe |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+}
+
+void printGame(int playerOneScore, int playerTwoScore, char board[7][7], int boardSize, char name[]){
+	system("cls");
+	printScore(playerOneScore, playerTwoScore, name);
+	printBoard(board, boardSize);
 }
 
 int checkDraw(char board[7][7], int size){
@@ -150,13 +255,32 @@ void makeMove(char board[7][7], int row, int col, char symbol){
 
 void printWinObjective(int size){
 	system("cls");
-	printf("====================");
-	printf("\nTujuan untuk menang");
-	printf("\n====================");
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------| Tic-Tac-Toe |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                         Score to win                        -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n"); 
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                 By Programmer Keren Indonesia               -|\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\n\n");
+	
 	if(size == 5){
-		printf("\nInput angka(3-5): ");
+		printf("\t\t\t\t\t\t\t\t\tMasukkan Input(3-5): ");
 	}else{
-		printf("\nInput angka(3-7): ");
+		printf("\t\t\t\t\t\t\t\t\tMasukkan Input(3-7): ");
 	}	
 }
 
@@ -248,23 +372,56 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 
 void printPlayerCount(){
 	system("cls");
-	printf("====================");
-	printf("\nMode Pemain");
-	printf("\n====================");
-	printf("\n1. Singleplayer");
-	printf("\n2. Multiplayer");
-	printf("\nPilih jumlah pemain: ");
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------| Tic-Tac-Toe |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||                         Player Mode                         ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                      1. Single Player                       ||\n");
+	printf("\t\t\t\t\t\t|-                      2. Multi Player                        -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n"); 
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                 By Programmer Keren Indonesia               -|\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\n\n");
+	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
 }
 
 void printDifficulty(){
 	system("cls");
-	printf("====================");
-	printf("\nKesulitan Komputer");
-	printf("\n====================");
-	printf("\n1. Mediocre");
-	printf("\n2. Medium");
-	printf("\n3. Masochist");
-	printf("\nPilih tingkat kesulitan komputer: ");
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------| Tic-Tac-Toe |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||                         Difficulty                          ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                        1. Mediocre                          ||\n");
+	printf("\t\t\t\t\t\t|-                        2. Medium                            -|\n");
+	printf("\t\t\t\t\t\t||                        3. Masochist                         ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n"); 
+	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                 By Programmer Keren Indonesia               -|\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\n\n");
+	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
+
+
 }
 
 int checkWin(char board[7][7], int size, int turn){
@@ -278,43 +435,56 @@ int checkWin(char board[7][7], int size, int turn){
 }
 
 void printWinMultiplayer(int winner, char name[]){
-	printf("\n==============================");
+	system("cls");
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------|    RESULT   |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
 	switch(winner){
 		case 1:
-			printf("\nPermainan Seri");
+			printf("\t\t\t\t\t\tGame is Tie");
 			break;
 		case 2:
-			printf("\n%s Menang", name);
+			printf("\t\t\t\t\t\t%s Win", name);
 			break;
 		case 3:
-			printf("\n%s Menang", name);
+			printf("\t\t\t\t\t\t%s Win", name);
 			break;
 	}
-	printf("\n==============================\n");
+	printf("\n\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t                 By Programmer Keren Indonesia                  ");
 }
 
 void printWinSingleplayer(int winner, char name[]){
-	printf("\n==============================");
+	system("cls");
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------|    RESULT   |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
 	switch(winner){
 		case 1:
-			printf("\nPermainan Seri");
+			printf("\t\t\t\t\t\tGame is Tie");
 			break;
 		case 2:
-			printf("\n%s Menang", name);
+			printf("\n\n\t\t\t\t\t\t\t\t\t   %s Win\n\n", name);
 			break;
 		case 3:
-			printf("\nKomputer Menang");
+			printf("\t\t\t\t\t\t%s Win", name);
 			break;
 	}
-	printf("\n==============================\n");
+	printf("\n\t\t\t\t\t\t=================================================================\n");
 }
 
 void printGameOver(){
-	printf("\n==============================");
-	printf("\nApakah ingin main lagi?");
-	printf("\n1. Main Lagi");
-	printf("\n2. Kembali ke Menu Utama");
-	printf("\n==============================\n");
+	printf("\n\t\t\t\t\t\t\t\t     Apakah ingin main lagi?");
+	printf("\n\t\t\t\t\t\t\t\t     1. Main Lagi");
+	printf("\n\t\t\t\t\t\t\t\t     2. Kembali ke Menu Utama\n");
+	printf("\n\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t                   By Programmer Keren Indonesia                  \n");
+	printf("\n");
+	printf("\t\t\t\t\t\t\t\t\tMasukkan input: ");
 }
 
 void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
@@ -325,12 +495,12 @@ void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
 			*row = *row - 1;
 			*col = *col - 1;
 			if(checkBoard(board, *row, *col) == 99){
-				printf("Isikan input yang benar\n");
+				printf("Masukkan input dengan benar");
 			}
 		}while(*row < 0 && *row >= boardSize || *col < 0 && *col >= boardSize);
 		
 		if(checkBoard(board, *row, *col) == 0){
-			printf("Kotak sudah terisi\n");
+			printf("Kotak Sudah Terisi");
 		}
 		
 	}while(checkBoard(board, *row, *col) != 1);
@@ -350,7 +520,7 @@ void gameplay(game mainGame, player playerOne, player playerTwo){
 		boardInitialization(mainGame.board, mainGame.boardSize);
 		turn = 0;
 		do{
-			printBoard(mainGame.board, mainGame.boardSize);
+			printGame(playerOne.score, playerTwo.score,mainGame.board, mainGame.boardSize, playerOne.playerName);
 			if(mainGame.difficulty == 0){
 				scanUserInput(mainGame.board, mainGame.boardSize, &row, &col);
 			}else{
@@ -379,10 +549,10 @@ void gameplay(game mainGame, player playerOne, player playerTwo){
 		
 		switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
 			case 2:
-				addScore(mainGame.winner, playerOne.playerName, playerOne.score);
+				addScore(mainGame.winner, playerOne.playerName, &playerOne.score);
 				break;
 			case 3:
-				addScore(mainGame.winner, playerTwo.playerName, playerTwo.score);
+				addScore(mainGame.winner, playerTwo.playerName, &playerTwo.score);
 				break;
 			default:
 				strcpy(mainGame.winner, "No One");
@@ -468,12 +638,13 @@ void gameInitialization(){
 }
 
 int main(){
+	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 	int initialize = 1;
 	
 	do{
 		printMenu();
 		if(initialize != 1 && initialize != 2){
-			printf("\n\nInput hanya 1/2\n");
+			printf("");
 		}
 		scanInteger(&initialize);
 		
