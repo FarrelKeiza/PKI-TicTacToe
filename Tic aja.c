@@ -5,7 +5,7 @@
 #include <windows.h>
 
 typedef struct{
-	int highScore;
+	int highScore[3];
 	char board[7][7];
 	int boardSize;
 	int winObjective;
@@ -565,6 +565,22 @@ void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
 	}while(checkBoard(board, *row, *col, boardSize) != 1);
 }
 
+void saveHighScore(int highscore[], int playerScore, int difficulty){
+	switch(difficulty){
+		case 1:
+			highscore[1] = playerScore;
+			break;
+		case 2:
+			highscore[2] = playerScore;
+			break;
+		case 3:
+			highscore[3] = playerScore;
+			break;
+		default:
+			break;
+	}
+}
+
 void mediocreBot(char board[7][7], int size, int *row, int *col){
 	do{
 		*row = rand() % size;
@@ -658,6 +674,7 @@ void gameplay(game mainGame, player playerOne, player playerTwo){
 		}while(play != 1 && play != 2);
 		
 		if(play == 2){
+			saveHighScore(mainGame.highScore, playerOne.score, mainGame.difficulty);
 			main();
 		}
 	}while(play == 1);
