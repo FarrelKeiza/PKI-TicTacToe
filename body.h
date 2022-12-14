@@ -125,7 +125,7 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 				}else{
 					count = 0;
 				}
-			if(board[j][k] == symbol){
+			if(board[j][i] == symbol){
 					count2++;
 				}else{
 					count2 = 0;
@@ -347,9 +347,9 @@ void mediocreBot(char board[7][7], int size, int *row, int *col){
 void mediumBot(char board[7][7], int size, int *row, int *col, char symbol, int winObjective){
 	int i = 0, j, isWin = 0;
 	
-	while(i < size && isWin == 0){
+	while(i < size){
 		j = 0;
-		while(j < size && isWin == 0){
+		while(j < size){
 			if(checkBoard(board, i, j, size) == 1){
 				board[i][j] = symbol;
 				if(checkWinner(board, size, 0, winObjective) == 1){
