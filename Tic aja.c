@@ -21,7 +21,7 @@ typedef struct{
 
 void printMenu(){
 	system("cls");
-	printf("=============================");
+	printf("\n=============================");
 	printf("\nSelamat Datang di Tic Tac Toe");
 	printf("\n=============================");
 	printf("\n1. Mainkan Tic Tac Toe");
@@ -327,7 +327,7 @@ void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
 			if(checkBoard(board, *row, *col) == 99){
 				printf("Isikan input yang benar\n");
 			}
-		}while(*row < 0 && *row >= boardSize && *col < 0 && *col >= boardSize);
+		}while(*row < 0 && *row >= boardSize || *col < 0 && *col >= boardSize);
 		
 		if(checkBoard(board, *row, *col) == 0){
 			printf("Kotak sudah terisi\n");
@@ -433,13 +433,13 @@ void gameInitialization(){
 				do{
 					printWinObjective(mainGame.boardSize);
 					scanInteger(&mainGame.winObjective);
-				}while(mainGame.winObjective < 3 && mainGame.winObjective > 5);
+				}while(mainGame.winObjective < 3 || mainGame.winObjective > 5);
 				break;
 			case 7:
 				do{
 					printWinObjective(mainGame.boardSize);
 					scanInteger(&mainGame.winObjective);
-				}while(mainGame.winObjective < 3 && mainGame.winObjective > 7);
+				}while(mainGame.winObjective < 3 || mainGame.winObjective > 7);
 				break;
 		}
 	}
