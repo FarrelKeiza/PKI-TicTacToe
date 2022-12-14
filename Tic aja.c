@@ -403,7 +403,7 @@ void printDifficulty(){
 	printf("\t\t\t\t\t\t||                        1. Mediocre                          ||\n");
 	printf("\t\t\t\t\t\t|-                        2. Medium                            -|\n");
 	printf("\t\t\t\t\t\t||                        3. Masochist                         ||\n");
-	printf("\t\t\t\t\t\t|-                                                             -|\n");
+	printf("\t\t\t\t\t\t|-                        4. PKI                               -|\n");
 	printf("\t\t\t\t\t\t||                                                             ||\n");
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
 	printf("\t\t\t\t\t\t||                                                             ||\n"); 
@@ -506,6 +506,31 @@ void mediocreBot(char board[7][7], int size, int *row, int *col){
 	}while(checkBoard(board, *row, *col, size) == 0);
 }
 
+void mediumBot(char board[7][7], int size, int *row, int *col, char symbol, int winObjective){
+	int i = 0, j, isWin = 0;
+	
+	while(i < size && isWin == 0){
+		j = 0;
+		while(j < size && isWin == 0){
+			if(checkBoard(board, i, j, size) == 1){
+				board[i][j] = symbol;
+				if(checkWinner(board, size, 0, winObjective) == 1){
+					*row = i;
+					*col = j;
+					isWin = 1;
+				}
+				board[i][j] = '_';
+			}
+			j++;
+		}
+		i++;
+	}
+	
+	if(isWin == 0){
+		mediocreBot(board, size, &(*row), &(*col));
+	}
+}
+
 void gameplay(game mainGame, player playerOne, player playerTwo){
 	int turn, row, col, play;
 	
@@ -531,6 +556,8 @@ void gameplay(game mainGame, player playerOne, player playerTwo){
 						case 1:
 							mediocreBot(mainGame.board, mainGame.boardSize, &row, &col);
 							break;
+						case 2:
+							mediumBot(mainGame.board, mainGame.boardSize, &row, &col, playerOne.symbol, mainGame.winObjective);
 						default:
 							break;
 					}
@@ -586,7 +613,7 @@ void gameInitialization(){
 	do{
 		printBoardSize();
 		scanInteger(&choice);
-	}while(choice != 1 && choice != 2 && choice != 3);
+	}while(choice < 1 && choice > 3);
 	
 	mainGame.boardSize = getBoardSize(choice);
 	
@@ -617,7 +644,7 @@ void gameInitialization(){
 		do{
 			printDifficulty();
 			scanInteger(&mainGame.difficulty);
-		}while(mainGame.difficulty != 1 && mainGame.difficulty != 2 && mainGame.difficulty != 3);
+		}while(mainGame.difficulty < 1 && mainGame.difficulty > 4);
 	}
 	
 	printPlayerName(1);
