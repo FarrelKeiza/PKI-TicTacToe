@@ -389,7 +389,6 @@ void printPlayerCount(){
 
 void printDifficulty(){
 	system("cls");
-<<<<<<< HEAD
 	printf("\n\n\n\n\n\n\n\n");
 	printf("\t\t\t\t\t\t=================================================================\n");
 	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
@@ -412,15 +411,8 @@ void printDifficulty(){
 	printf("\t\t\t\t\t\t=================================================================\n");
 	printf("\n\n");
 	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
-=======
-	printf("====================");
-	printf("\nKesulitan Komputer");
-	printf("\n====================");
-	printf("\n1. Mediocre");
-	printf("\n2. Medium");
-	printf("\n3. Masochist");
-	printf("\nPilih tingkat kesulitan komputer: ");
->>>>>>> e134da336023d26681a099ea8272451001bb628c
+
+
 }
 
 int checkWin(char board[7][7], int size, int turn){
@@ -499,7 +491,7 @@ void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
 		}while(*row < 0 && *row >= boardSize && *col < 0 && *col >= boardSize);
 		
 		if(checkBoard(board, *row, *col) == 0){
-			printf("");
+			printf("Kotak Sudah Terisi");
 		}
 		
 	}while(checkBoard(board, *row, *col) != 1);
