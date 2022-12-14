@@ -32,8 +32,8 @@ void printMenu(){
 	printf("\t\t\t\t\t\t||                                                             ||\n");
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
 	printf("\t\t\t\t\t\t||                       1. Play Game                          ||\n");
-	printf("\t\t\t\t\t\t|-                       2. Exit Game                          -|\n");
-	printf("\t\t\t\t\t\t||                                                             ||\n");
+	printf("\t\t\t\t\t\t|-                       2. Tutorial                           -|\n");
+	printf("\t\t\t\t\t\t||                       3. Exit Game                          ||\n");
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
 	printf("\t\t\t\t\t\t||                                                             ||\n");
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
@@ -46,6 +46,37 @@ void printMenu(){
 	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
 }
 
+void printTutorial(){
+		system("cls");
+		printf("\n\n");                                                                     
+		printf("\t\t\t\t\t\t  _|                  _|                          _|            _|\n");      
+		printf("\t\t\t\t\t\t_|_|_|_|  _|    _|  _|_|_|_|    _|_|    _|  _|_|        _|_|_|  _|\n ");     
+		printf("\t\t\t\t\t\t  _|      _|    _|    _|      _|    _|  _|_|      _|  _|    _|  _|\n");      
+		printf("\t\t\t\t\t\t  _|      _|    _|    _|      _|    _|  _|        _|  _|    _|  _|\n ");     
+		printf("\t\t\t\t\t\t   _|_|    _|_|_|     _|_|      _|_|    _|        _|    _|_|_|  _|  ");    
+		printf("\n\n\n\n");
+		printf("\t\t\t\t\t     1   2   3                1   2   3   4   5               1   2   3   4   5   6   7\n\n");
+		printf("\t\t\t\t\t1  | _ | _ | _ | \t 1  | _ | _ | _ | _ | _ | \t 1  | _ | _ | _ | _ | _ | _ | _ | \n\n");
+		printf("\t\t\t\t\t1  | _ | _ | _ | \t 2  | _ | _ | _ | _ | _ | \t 2  | _ | _ | _ | _ | _ | _ | _ | \n\n");
+		printf("\t\t\t\t\t1  | _ | _ | _ | \t 3  | _ | _ | _ | _ | _ | \t 3  | _ | _ | _ | _ | _ | _ | _ | \n\n");
+		printf("\t\t\t\t\t                 \t 4  | _ | _ | _ | _ | _ | \t 4  | _ | _ | _ | _ | _ | _ | _ | \n\n");
+		printf("\t\t\t\t\t                 \t 5  | _ | _ | _ | _ | _ | \t 5  | _ | _ | _ | _ | _ | _ | _ | \n\n");
+		printf("\t\t\t\t\t\t                                            \t 6  | _ | _ | _ | _ | _ | _ | _ | \n\n");
+		printf("\t\t\t\t\t\t                                            \t 7  | _ | _ | _ | _ | _ | _ | _ | \n\n");
+		printf("\t\t\t\t\t1. Pilihlah papan yang anda inginkan!\n");
+		printf("\t\t\t\t\t2. Pilih mode player yang diinginkan (Single Player/Multi Player).\n");
+		printf("\t\t\t\t\t3. Jika single player, maka harus memilih difficulty mode terlebih dahulu.\n");
+		printf("\t\t\t\t\t4. Masukkan nama yang anda inginkan!\n");
+		printf("\t\t\t\t\t5. Player 1 = 'X' Player 2 = 'O'!\n");
+		printf("\t\t\t\t\t6. Jika game sudah dimulai, cara menginputkan adalah dengan [nomor] spasi [nomor] \n");
+		printf("\t\t\t\t\t7. Cara untuk menang adalah membuat baris sejajar horizontal/vertikal/diagonal  \n");
+		printf("\t\t\t\t\t   sesuai dengan papan board dengan simbol yang sama\n");
+		printf("\t\t\t\t\t8. Note: Untuk papan board 5x5 dan 7x7 dapat disetel berapa baris untuk meraih kemenangan \n");
+		printf("\n\n");
+		printf("\t\t\t\t\t\t\t\t\tKembali ke menu utama? (Y): "); 
+				
+	
+}
 void printBoardSize(){
 	system("cls");
 	printf("\n\n\n\n\n\n\n\n");
@@ -258,7 +289,7 @@ void printWinObjective(int size){
 	printf("\t\t\t\t\t\t||                                                             ||\n");
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
 	printf("\t\t\t\t\t\t||                                                             ||\n");
-	printf("\t\t\t\t\t\t|-                         Score to win                        -|\n");
+	printf("\t\t\t\t\t\t|-                   How many symbols to win                   -|\n");
 	printf("\t\t\t\t\t\t||                                                             ||\n");
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
 	printf("\t\t\t\t\t\t||                                                             ||\n");
@@ -488,12 +519,14 @@ void scanUserInput(char board[7][7], int boardSize, int *row, int *col){
 			*row = *row - 1;
 			*col = *col - 1;
 			if(checkBoard(board, *row, *col, boardSize) == 99){
-				printf("Masukkan input dengan benar");
+				printf("\t\t\t\t\t\t\t\t\tMasukkan input dengan benar: ");
 			}
 		}while(*row < 0 || *row >= boardSize || *col < 0 || *col >= boardSize);
 		
 		if(checkBoard(board, *row, *col, boardSize) == 0){
-			printf("Kotak Sudah Terisi");
+			printf("\t\t\t\t\t\t\t\t\tInputkan yang lain: ");
+	
+			
 		}
 		
 	}while(checkBoard(board, *row, *col, boardSize) != 1);
@@ -662,21 +695,31 @@ int main(){
 	system("Color 4E");
 	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 	int initialize = 1;
+	char scan;
 	
 	do{
 		printMenu();
-		if(initialize != 1 && initialize != 2){
+		if(initialize != 1 && initialize != 3){
 			printf("");
 		}
 		scanInteger(&initialize);
 		
-	}while(initialize != 1 && initialize != 2);
+	}while(initialize < 1 || initialize > 3);
 	
 	switch(initialize){
 		case 1:
 			gameInitialization();
 			break;
 		case 2:
+			do{
+			printTutorial();
+			scanf(" %c", &scan);
+					
+			}while( scan != 'Y' && scan != 'y');
+			main();
+			
+			break;
+		case 3:
 			return 0;
 	}
 }
