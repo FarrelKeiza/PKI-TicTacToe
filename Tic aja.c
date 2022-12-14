@@ -629,6 +629,7 @@ void gameInitialization(){
 }
 
 int main(){
+	system("Color 4E");
 	ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
 	int initialize = 1;
 	
