@@ -11,7 +11,7 @@ typedef struct{
 }hs;
 
 typedef struct{
-	highscore highScore[3];
+	hs highScore[3];
 	char board[7][7];
 	int boardSize;
 	int winObjective;

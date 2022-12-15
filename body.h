@@ -683,20 +683,7 @@ void printWinObjective(int size){
 }
 
 
-void saveHighScore(int highscore[], int playerScore, int difficulty){
-	switch(difficulty){
-		case 1:
-			highscore[1] = playerScore;
-			break;
-		case 2:
-			highscore[2] = playerScore;
-			break;
-		case 3:
-			highscore[3] = playerScore;
-			break;
-		default:
-			break;
-	}
+void saveHighScore(hs highscore[], int playerScore, int difficulty){
 }
 
 
