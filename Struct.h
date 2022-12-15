@@ -13,3 +13,9 @@ typedef struct{
 	int score;
 	char symbol;
 }player;
+
+typedef struct{
+	char playerName[100];
+	int score;
+	int difficulty;
+}highscore;

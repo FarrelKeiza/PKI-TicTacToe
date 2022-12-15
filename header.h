@@ -50,6 +50,8 @@ void printWin(int winner, char name[]);
 
 void printWinObjective(int size);
 
+void readHighScore();
+
 void saveHighScore(int highscore[], int playerScore, int difficulty);
 
 void scanInteger(int *value);
