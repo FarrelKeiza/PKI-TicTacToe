@@ -52,7 +52,7 @@ void printWinObjective(int size);
 
 void readHighScore();
 
-void saveHighScore(int highscore[], int playerScore, int difficulty);
+void saveHighScore(hs highscore[], int playerScore, int difficulty);
 
 void scanInteger(int *value);
 
