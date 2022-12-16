@@ -8,7 +8,7 @@ int checkBoard(char board[7][7], int row, int col, int size);
 
 int checkDraw(char board[7][7], int size);
 
-int checkWin(char board[7][7], int size, int turn);
+int checkWin(char board[7][7], int size, int turn, int winObjective);
 
 int checkWinner(char board[7][7], int size, int turn, int winObjective);
 
@@ -24,11 +24,11 @@ void mediocreBot(char board[7][7], int size, int *row, int *col);
 
 void mediumBot(char board[7][7], int size, int *row, int *col, char symbol, int winObjective);
 
+char playerSymbol(int turn);
+
 void printDifficulty();
 
 void printPlayerCount();
-
-void playerSymbol(char *symbol, int turn);
 
 void printBoard(char board[7][7], int size);
 

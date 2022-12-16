@@ -53,14 +53,14 @@ int checkDraw(char board[7][7], int size){
 }
 
 
-int checkWin(char board[7][7], int size, int turn){
-	if(checkDraw(board, size) == 1){
+int checkWin(char board[7][7], int size, int turn, int winObjective){
+	if(checkWinner(board, size, (turn + 1) % 2, winObjective) == 1){
 		return 1;
-	}else if((turn + 1) % 2 == 0){
+	}
+	if(checkWinner(board, size, turn, winObjective) == 1){
 		return 2;
-		}else{
-			return 3;
-		}
+	}
+	return 0;
 }
 
 
@@ -191,8 +191,8 @@ void gameInitialization(){
 	
 	mainGame.winObjective = 3;
 	
-	playerSymbol(&playerOne.symbol, 1);
-	playerSymbol(&playerTwo.symbol, 2);
+	playerOne.symbol = playerSymbol(1);
+	playerTwo.symbol = playerSymbol(2);
 	
 	playerOne.score = 0;
 	playerTwo.score = 0;
@@ -247,7 +247,7 @@ void gameInitialization(){
 
 
 void gameplay(game mainGame, player playerOne, player playerTwo){
-	int turn, row, col, play;
+	int turn, row, col, play, filled;
 	
 	do{
 		boardInitialization(mainGame.board, mainGame.boardSize);
@@ -282,20 +282,24 @@ void gameplay(game mainGame, player playerOne, player playerTwo){
 			turn = (turn + 1) % 2;
 		}while(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 0 && checkDraw(mainGame.board, mainGame.boardSize) == 0);
 		
-		switch(checkWin(mainGame.board, mainGame.boardSize, turn)){
-			case 2:
+		switch(checkWin(mainGame.board, mainGame.boardSize, turn , mainGame.winObjective)){
+			case 1:
 				addScore(mainGame.winner, playerOne.playerName, &playerOne.score);
 				break;
-			case 3:
+			case 2:
 				addScore(mainGame.winner, playerTwo.playerName, &playerTwo.score);
 				break;
 			default:
-				strcpy(mainGame.winner, "No One");
+				break;
 		}
 		
 		printBoard(mainGame.board, mainGame.boardSize);
 		
-		printWin(checkWin(mainGame.board, mainGame.boardSize, turn), mainGame.winner);
+		if(checkWinner(mainGame.board, mainGame.boardSize, (turn + 1) % 2, mainGame.winObjective) == 1){
+			printWin((turn + 1) % 2 + 2, mainGame.winner);
+		}else{
+			printWin(1, mainGame.winner);
+		}
 		
 		do{
 			printGameOver();
@@ -347,7 +351,7 @@ void mediocreBot(char board[7][7], int size, int *row, int *col){
 void mediumBot(char board[7][7], int size, int *row, int *col, char symbol, int winObjective){
 	int i = 0, j, isWin = 0;
 	
-	while(i < size){
+	while(i < size && isWin == 0){
 		j = 0;
 		while(j < size){
 			if(checkBoard(board, i, j, size) == 1){
@@ -369,6 +373,15 @@ void mediumBot(char board[7][7], int size, int *row, int *col, char symbol, int 
 	}
 }
 
+
+char playerSymbol(int turn){
+	switch(turn){
+		case 1:
+			return 'X';
+		case 2:
+			return 'O';
+	}
+}
 
 
 void printDifficulty(){
@@ -424,18 +437,6 @@ void printPlayerCount(){
 	printf("\t\t\t\t\t\t=================================================================\n");
 	printf("\n\n");
 	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
-}
-
-
-void playerSymbol(char *symbol, int turn){
-	switch(turn){
-		case 1:
-			*symbol = 'X';
-			break;
-		case 2:
-			*symbol = 'O';
-			break;
-	}
 }
 
 
