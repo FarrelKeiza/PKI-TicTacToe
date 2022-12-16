@@ -120,15 +120,15 @@ int checkWinner(char board[7][7], int size, int turn, int winObjective){
 				j = k;
 				while(i < size && j < size){
 						if(board[i][j] == symbol){
-									count++;
-							}else{
-									count = 0;
-							}
+								count++;
+						}else{
+								count = 0;
+						}
 						if(board[j][i] == symbol){
-									count2++;
-							}else{
-									count2 = 0;
-							}
+								count2++;
+						}else{
+								count2 = 0;
+						}
 						if(count == winObjective || count2 == winObjective){
 								return 1;
 						}
@@ -475,7 +475,7 @@ void printBoard(char board[7][7], int size){
 				}
 		}
 		printf("\n\t\t\t\t\t\t=================================================================\n");
-		printf("\t\t\t\t\t\t                 By Programmer Keren Indonesia                  ");
+		printf("\t\t\t\t\t\t                   By Programmer Keren Indonesia                  ");
 		printf("\n\n\t\t\t\t\t\t\t\t\tInput Pilihan: ");
 }
 
@@ -635,14 +635,13 @@ void printWin(int winner, char name[]){
 						printf("\t\t\t\t\t\tGame is Tie");
 						break;
 				case 2:
-						printf("\t\t\t\t\t\t%s Win", name);
+						printf("\t\t\t\t\t\t\t\t\t  %s Win", name);
 						break;
 				case 3:
-						printf("\t\t\t\t\t\t%s Win", name);
+						printf("\t\t\t\t\t\t\t\t\t  %s Win", name);
 						break;
 		}
 		printf("\n\t\t\t\t\t\t=================================================================\n");
-		printf("\t\t\t\t\t\t                 By Programmer Keren Indonesia                  ");
 }
 
 
