@@ -18,7 +18,6 @@ int main(){
 						printf("");
 				} 																			 
 				scanInteger(&initialize); 						/* Memanggil modul scanInteger(); untuk menginput nilai berdasarkan input user */
-				
 		}while(initialize < 1 || initialize > 3);				/* Kenapa memakai Do while, agar di print sekali dan, tidak akan 
 													    		keluar dari perulangan jikalau input user 1 > initialize > 3 */
 		

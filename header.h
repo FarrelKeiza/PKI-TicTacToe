@@ -16,13 +16,9 @@ int checkDraw(char board[7][7], int size);
 /*I.S :
   F.S : */
 
-<<<<<<< HEAD
 int checkWin(char board[7][7], int size, int turn, int winObjective);
-=======
-int checkWin(char board[7][7], int size, int turn);
 /*I.S :
   F.S : */
->>>>>>> 0a234dda45f696d0021c2166230bb1ff94f716a7
 
 int checkWinner(char board[7][7], int size, int turn, int winObjective);
 /*I.S :
@@ -49,19 +45,12 @@ void mediocreBot(char board[7][7], int size, int *row, int *col);
   F.S : */
 
 void mediumBot(char board[7][7], int size, int *row, int *col, char symbol, int winObjective);
-<<<<<<< HEAD
 
 char playerSymbol(int turn);
 
 void printDifficulty();
 
 void printPlayerCount();
-
-=======
-/*I.S :
-  F.S : */
-
-void playerSymbol(char *symbol, int turn);
 /*I.S :
   F.S : */
 
@@ -73,7 +62,6 @@ void printPlayerCount();
 /*I.S :
   F.S : */
 
->>>>>>> 0a234dda45f696d0021c2166230bb1ff94f716a7
 void printBoard(char board[7][7], int size);
 /*I.S :
   F.S : */
