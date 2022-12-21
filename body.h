@@ -200,7 +200,7 @@ void gameInitialization(){
 	do{
 		printBoardSize();
 		scanInteger(&choice);
-	}while(choice < 1 && choice > 3);
+	}while(choice < 1 || choice > 3);
 	
 	mainGame.boardSize = getBoardSize(choice);
 	
@@ -693,7 +693,7 @@ void scanInteger(int *value){
 	
 	scanf("%d", &*value);
 	temp = getchar();
-	if(temp != '\n'){
+	if(temp != '\n' && temp != ' '){
 		*value = -99;
 	}
 }
