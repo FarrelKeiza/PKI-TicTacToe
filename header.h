@@ -78,6 +78,10 @@ void printGameOver();
 /*I.S :
   F.S : */
 
+void printHighScore(hs highScore[]);
+/*I.S :
+  F.S : */
+
 void printMenu();
 /*I.S :
   F.S : */
@@ -102,11 +106,11 @@ void printWinObjective(int size);
 /*I.S :
   F.S : */
 
-void readHighScore();
+void readHighScore(hs highScore[]);
 /*I.S :
   F.S : */
 
-void saveHighScore(hs highscore[], int playerScore, int difficulty);
+void saveHighScore(hs highScore[], int playerScore, int difficulty, char playerName[]);
 /*I.S :
   F.S : */
 
