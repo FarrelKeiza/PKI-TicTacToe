@@ -10,6 +10,9 @@ int main(){
 																di eksekusi (Memakai Library #include <windows.h> */
 		int initialize; 										/* Sebagai penampung nilai integer inputan user */
 		char scan; 												/* Sebagai penampung nilai char inputan user */ 
+		game mainGame;
+		player playerOne, playerTwo;
+		readHighScore(mainGame.highScore);
 		
 		do{
 				printMenu(); 									/* Memanggil modul printMenu(); untuk ditampilkan di program utama */
@@ -23,7 +26,8 @@ int main(){
 		
 		switch(initialize){										/* Kenapa memakai switch-case, karena lebih simple secara code dibandingkan if-else */
 				case 1:
-						gameInitialization();					/* Jikalau user meng input 1, maka program akan mengeksekusi modul gameInitialization(); */
+						gameInitialization(&mainGame, &playerOne, &playerTwo);					/* Jikalau user meng input 1, maka program akan mengeksekusi modul gameInitialization(); */
+						gameplay(mainGame, playerOne, playerTwo);
 						break;
 				case 2:
 						do{
@@ -34,8 +38,17 @@ int main(){
 						main();									/* Jika berhasil keluar dari perulangan, maka akan memanggil main(); untuk kembali ke main menu */				
 						
 						break;
+				
 				case 3:
-						return 0;								/* Jikalau user meng input 3, maka akan exit dari program */
+						do{
+						printHighScore(mainGame.highScore);
+						scanf(" %c", &scan);
+								
+						}while( scan != 'Y' && scan != 'y');
+						main();
+						break;
+				case 4:
+						return 0;							/* Jikalau user meng input 4, maka akan exit dari program */
 		}
 }
 

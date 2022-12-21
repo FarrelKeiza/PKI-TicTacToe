@@ -307,7 +307,7 @@ void gameplay(game mainGame, player playerOne, player playerTwo){
 		}while(play != 1 && play != 2);
 		
 		if(play == 2){
-			saveHighScore(mainGame.highScore, playerOne.score, mainGame.difficulty);
+			saveHighScore(mainGame.highScore, playerOne.score, mainGame.difficulty, playerOne.playerName);
 			main();
 		}
 	}while(play == 1);
@@ -530,6 +530,35 @@ void printGameOver(){
 	printf("\t\t\t\t\t\t\t\t\tMasukkan input: ");
 }
 
+void printHighScore(hs highScore[]){
+	int i;
+	system("cls");
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t\t=================================================================\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n");
+	printf("\t\t\t\t\t\t||-----------------------| HIGHSCORE ! |-----------------------||\n");
+	printf("\t\t\t\t\t\t|-                       ---------------                       -|\n\n");
+	printf("\t\t\t\t\t\t||-------------------------------------------------------------||\n");
+	for(i = 0; i < 3; i++){
+		switch(i){
+			case 0 : 
+				printf("\t\t\t\t\t\t                             MEDIOCRE                            \n");
+				break;
+			case 1 :
+				printf("\t\t\t\t\t\t                              MEDIUM                             \n");
+				break;
+			case 2 :
+				printf("\t\t\t\t\t\t                             MASOCIST                            \n");
+				break;
+		}
+		readHighScore(highScore);
+		printf("\t\t\t\t\t\t                        HighScore = %s %d                            \n", highScore[i].playerName, highScore[i].score);
+		printf("\t\t\t\t\t\t||-------------------------------------------------------------||\n");
+	}
+		printf("\t\t\t\t\t\t|-                 By Programmer Keren Indonesia               -|\n");
+		printf("\t\t\t\t\t\t=================================================================\n");
+		printf("\t\t\t\t\t\t                    Kembali ke menu utama? (Y): ");
+}
 
 void printMenu(){
 	system("cls");
@@ -544,7 +573,8 @@ void printMenu(){
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
 	printf("\t\t\t\t\t\t||                       1. Play Game                          ||\n");
 	printf("\t\t\t\t\t\t|-                       2. Tutorial                           -|\n");
-	printf("\t\t\t\t\t\t||                       3. Exit Game                          ||\n");
+	printf("\t\t\t\t\t\t||                       3. High Score                         ||\n");
+	printf("\t\t\t\t\t\t||                       4. Exit Game                          ||\n");
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
 	printf("\t\t\t\t\t\t||                                                             ||\n");
 	printf("\t\t\t\t\t\t|-                                                             -|\n");
@@ -556,7 +586,6 @@ void printMenu(){
 	printf("\n\n");
 	printf("\t\t\t\t\t\t\t\t\tMasukkan Input: ");
 }
-
 
 void printPlayerName(int player){
 	system("cls");
@@ -683,10 +712,45 @@ void printWinObjective(int size){
 	}	
 }
 
-
-void saveHighScore(hs highscore[], int playerScore, int difficulty){
+void readHighScore(hs highScore[]){
+	FILE *skor;
+	
+	skor= fopen("score.txt", "r");
+	
+	fscanf(skor, "%s %d %s %d %s %d", &highScore[0].playerName, &highScore[0].score, &highScore[1].playerName, &highScore[1].score, &highScore[2].playerName, &highScore[2].score);	
+	
+	fclose(skor);
 }
 
+void saveHighScore(hs highScore[], int playerScore, int difficulty, char playerName[]){
+    FILE *skor;
+    int a;
+    skor = fopen("score.txt", "w");
+	switch(difficulty){
+		case 1:
+			if(highScore[0].score < playerScore){
+				strcpy(highScore[0].playerName, playerName);
+            	highScore[0].score = playerScore;
+        	}    
+			break;
+		case 2:
+			if(highScore[1].score < playerScore){
+				strcpy(highScore[1].playerName, playerName);
+            	highScore[1].score = playerScore;
+        	}    
+			break;
+		case 3:
+            if(highScore[2].score < playerScore){
+            	strcpy(highScore[2].playerName, playerName);
+				highScore[2].score = playerScore;
+			}	
+			break;
+	}
+	for(a = 0 ; a < 3 ; a++){
+		fprintf(skor, "%s %d ", highScore[a].playerName, highScore[a].score);
+	}
+	fclose(skor);
+}
 
 void scanInteger(int *value){
 	char temp;
